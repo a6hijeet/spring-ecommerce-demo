@@ -1,0 +1,81 @@
+####################################
+# OS / Editor
+####################################
+.DS_Store
+*~
+.#*
+.attach_pid*
+.vscode/
+.idea/
+*.iml
+*.ipr
+*.iws
+
+####################################
+# Java / Spring / Maven / Gradle
+####################################
+*.class
+*.jar
+*.war
+*.ear
+
+backend/target/
+backend/build/
+backend/bin/
+backend/out/
+
+.gradle/
+.gradletasknamecache
+.sts4-cache
+.factorypath
+.classpath
+.project
+.settings/
+.springBeans
+.recommenders
+.metadata/
+
+dependency-reduced-pom.xml
+.flattened-pom.xml
+interpolated*.xml
+manifest.yml
+MANIFEST.MF
+build.log
+
+# Allow source bin/build if present
+!/**/src/**/bin
+!/**/src/**/build
+
+####################################
+# Frontend (Node / React / Angular / Vue)
+####################################
+frontend/node_modules/
+frontend/dist/
+frontend/build/
+frontend/.kotlin/
+
+npm-debug.log*
+yarn-error.log*
+
+####################################
+# Databases / Runtime files
+####################################
+dump.rdb
+overridedb.*
+activemq-data/
+lib/
+_site/
+
+####################################
+# Secrets / Env
+####################################
+secrets.yml
+.env
+.env.*
+
+####################################
+# Misc
+####################################
+.git-hooks/
+/code
+.*.md.html
