@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ecommerce.backend.model.Product;
 import com.ecommerce.backend.service.ProductService;
+import org.springframework.web.bind.annotation.PutMapping;
+
 
 @RestController
 public class ProductController {
@@ -31,7 +33,11 @@ public class ProductController {
 
   @PostMapping("/products")
   public void addProduct(@RequestBody Product product) {
-    System.out.println(product);
     service.addProduct(product);
+  }
+
+  @PutMapping("/products")
+  public void updateProduct(@RequestBody Product product) {
+      service.updateProduct(product);
   }
 }

@@ -30,4 +30,21 @@ public class ProductService {
   public void addProduct(Product product) {
     products.add(product);
   }
+
+  public void updateProduct(Product product) {
+    try {
+      Product prod = products.stream()
+                            .filter(p -> p.getProdId() == product.getProdId())
+                            .findFirst()
+                            .orElseThrow(() ->new RuntimeException("No product found"));
+
+      int index = products.indexOf(prod);
+      products.set(index, product);
+
+    }catch(Exception e) {
+      System.out.println("No product found");
+    }
+    
+   
+  }
 }
