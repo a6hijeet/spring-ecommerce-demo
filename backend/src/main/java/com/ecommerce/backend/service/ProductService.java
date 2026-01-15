@@ -24,7 +24,8 @@ public class ProductService {
   public Product getProductById(int id) {
     return products.stream()
                     .filter(product -> product.getProdId() == id)
-                    .findFirst().orElse(new Product());
+                    .findFirst()
+                    .orElseThrow(() ->new RuntimeException("No product found"));
   }
 
   public void addProduct(Product product) {
@@ -33,10 +34,7 @@ public class ProductService {
 
   public void updateProduct(Product product) {
     try {
-      Product prod = products.stream()
-                            .filter(p -> p.getProdId() == product.getProdId())
-                            .findFirst()
-                            .orElseThrow(() ->new RuntimeException("No product found"));
+      Product prod = getProductById(product.getProdId());
 
       int index = products.indexOf(prod);
       products.set(index, product);
@@ -44,7 +42,10 @@ public class ProductService {
     }catch(Exception e) {
       System.out.println("No product found");
     }
-    
-   
+  }
+
+  public void deleteProduct(int prodId) {
+    Product product = getProductById(prodId);
+    products.remove(product);
   }
 }
