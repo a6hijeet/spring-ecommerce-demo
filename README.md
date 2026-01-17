@@ -72,7 +72,6 @@ spring-ecommerce-demo
 │   ├── src/
 │   ├── package.json
 │   └── vite.config.js
-│
 ├──pom.xml
 └──README.md
 ```
