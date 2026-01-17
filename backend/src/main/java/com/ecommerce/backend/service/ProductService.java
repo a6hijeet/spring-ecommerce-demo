@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-
 import com.ecommerce.backend.model.Product;
 import com.ecommerce.backend.repo.ProductRepository;
 
@@ -22,8 +21,7 @@ public class ProductService {
   }
 
   public Product getProductById(int id) {
-    return repo.findById(id)
-                      .orElseThrow(() ->
+    return repo.findById(id).orElseThrow(() ->
                         new RuntimeException("No product found")
                       );
   }
@@ -45,4 +43,9 @@ public class ProductService {
   public void deleteProduct(int id) {
     repo.deleteById(id);
   }
+
+  public List<Product> searchProducts(String keyword) {
+    return repo.searchProducts(keyword); 
+  }
+
 }
