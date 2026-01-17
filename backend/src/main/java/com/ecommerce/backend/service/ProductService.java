@@ -1,51 +1,48 @@
 package com.ecommerce.backend.service;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.io.IOException;
 import java.util.List;
-
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.ecommerce.backend.model.Product;
+import com.ecommerce.backend.repo.ProductRepository;
 
 @Service
 public class ProductService {
 
-  List<Product> products = new ArrayList<>(Arrays.asList(
-    new Product(101, "Iphone", 1000),
-    new Product(102, "Readme", 200),
-    new Product(103, "OnePlus", 600)
-  ));
+  private ProductRepository repo;
 
-  public List<Product> getProducts() {
-    return products;
+  public ProductService(ProductRepository repo) {
+    this.repo = repo;
+  }
+
+  public List<Product> getAllProducts() {
+    return repo.findAll();
   }
 
   public Product getProductById(int id) {
-    return products.stream()
-                    .filter(product -> product.getProdId() == id)
-                    .findFirst()
-                    .orElseThrow(() ->new RuntimeException("No product found"));
+    return repo.findById(id)
+                      .orElseThrow(() ->
+                        new RuntimeException("No product found")
+                      );
   }
 
-  public void addProduct(Product product) {
-    products.add(product);
+  public Product addProduct(Product product, MultipartFile imageFile) throws IOException {
+    product.setImageName(imageFile.getOriginalFilename());
+    product.setImageType(imageFile.getContentType());
+    product.setImageData(imageFile.getBytes());
+    return repo.save(product);
   }
 
-  public void updateProduct(Product product) {
-    try {
-      Product prod = getProductById(product.getProdId());
-
-      int index = products.indexOf(prod);
-      products.set(index, product);
-
-    }catch(Exception e) {
-      System.out.println("No product found");
-    }
+  public Product updateProduct(int id, Product product, MultipartFile imageFile) throws IOException {
+    product.setImageName(imageFile.getOriginalFilename());
+    product.setImageType(imageFile.getContentType());
+    product.setImageData(imageFile.getBytes());
+    return repo.save(product);
   }
 
-  public void deleteProduct(int prodId) {
-    Product product = getProductById(prodId);
-    products.remove(product);
+  public void deleteProduct(int id) {
+    repo.deleteById(id);
   }
 }
